@@ -23,24 +23,22 @@ spec:
           limits:
             alpha.kubernetes.io/nvidia-gpu: 4
         volumeMounts:
-        - mountPath: /usr/lib/x86_64-linux-gnu_with_nvidia
-          name: libraries
+        - mountPath: /usr/local/nvidia
+          name: nvidia-driver
         - mountPath: /joy
           name: shared
         - mountPath: /imagenetdata
           name: imagenet
       volumes:
-      - name: libraries
+      - name: nvidia-driver
         hostPath:
-          path: /usr/lib/x86_64-linux-gnu
+          path: /opt/nvidia-driver/current
       - name: shared
         hostPath:
           path: /home/joyadmin
       - name: imagenet
         hostPath:
           path: /mnt/imagenet-data
-      nodeSelector:
-        nodedesc: gpunode0
 ---
 apiVersion: v1
 kind: Service

@@ -39,3 +39,6 @@ c) on the worker1 pod, execute the script below:
 --data_name=imagenet --data_dir=/imagenetdata --job_name=worker --ps_hosts=10.0.211.196:2222 \
 --worker_hosts=10.0.221.23:2222,10.0.118.248:2222 --task_index=1
 </pre>
+
+### If you need a solution that covers and automates the setup steps above, check out Deep Learning Workspace from Microsoft Research, an open source toolkit empowering DL workloads using Kubernetes.
+Deep Learning Workspace's alpha release is available at https://github.com/microsoft/DLWorkspace/, with documentation at https://msrccs.github.io/DLWorkspace/

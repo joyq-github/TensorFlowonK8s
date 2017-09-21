@@ -41,4 +41,4 @@ c) on the worker1 pod, execute the script below:
 </pre>
 
 ### If you need a solution that covers and automates the setup steps above, check out Deep Learning Workspace from Microsoft Research, an open source toolkit empowering DL workloads using Kubernetes.
-Deep Learning Workspace's alpha release is available at https://github.com/microsoft/DLWorkspace/, with documentation at https://msrccs.github.io/DLWorkspace/
+Deep Learning Workspace's alpha release is available at https://github.com/microsoft/DLWorkspace/, with documentation at https://microsoft.github.io/DLWorkspace/

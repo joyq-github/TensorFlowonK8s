@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: tf-worker1
-        image: gcr.io/tensorflow/tensorflow:latest-gpu
+        image: gcr.io/tensorflow/tensorflow:1.2.0-gpu
         ports:
         - containerPort: 6006
           name: tensorboard
@@ -29,6 +29,8 @@ spec:
           name: shared
         - mountPath: /imagenetdata
           name: imagenet
+        - mountPath: /imagenetazurefiles
+          name: imagenetazure
       volumes:
       - name: nvidia-driver
         hostPath:
@@ -39,6 +41,11 @@ spec:
       - name: imagenet
         hostPath:
           path: /mnt/imagenet-data
+      - name: imagenetazure
+        azureFile:
+          secretName: azure-secret
+          shareName: imagenet
+          readOnly: false
 ---
 apiVersion: v1
 kind: Service

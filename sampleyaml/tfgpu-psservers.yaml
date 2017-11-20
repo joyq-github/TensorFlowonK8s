@@ -1,40 +1,35 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: tf-worker0
+  name: tf-ps0
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        tf-worker: "0"
+        tf-ps: "0"
         name-prefix: "tf"
-        job: "worker"
+        job: "ps"
     spec:
       containers:
-      - name: tf-worker0
-        image: gcr.io/tensorflow/tensorflow:1.2.0-gpu
+      - name: tf-ps0
+        image: gcr.io/tensorflow/tensorflow:1.2.0
         ports:
         - containerPort: 6006
           name: tensorboard
         - containerPort: 2222
           name: grpcport
-        resources:
-          limits:
-            alpha.kubernetes.io/nvidia-gpu: 4
+        env: []
         volumeMounts:
-        - mountPath: /usr/local/nvidia
-          name: nvidia-driver
         - mountPath: /joy
           name: shared
         - mountPath: /imagenetdata
           name: imagenet
         - mountPath: /imagenetazurefiles
           name: imagenetazure
+      nodeSelector:
+        nodedesc: cpunode0
       volumes:
-      - name: nvidia-driver
-        hostPath:
-          path: /opt/nvidia-driver/current
       - name: shared
         hostPath:
           path: /home/joyadmin
@@ -50,9 +45,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tf-worker0
+  name: tf-ps0
   labels:
-    tf-worker: "0"
+    tf-ps: "0"
 spec:
   type:  ClusterIP
   ports:
@@ -61,5 +56,5 @@ spec:
   - name: grpcport
     port: 2222
   selector:
-    tf-worker: "0"
+    tf-ps: "0"
 ---

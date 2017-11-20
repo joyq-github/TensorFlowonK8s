@@ -8,8 +8,7 @@ Note that you can use [Azure Container Service](https://docs.microsoft.com/en-us
 Execute the scripts [here](https://github.com/Microsoft/DLWorkspace/blob/master/src/ClusterBootstrap/scripts/prepare_acs.sh) on each agent host VM with GPUs.
 
 ## 3. Create a set of pods for distributed TensorFlow
-For example, to create 2 parameter servers and 2 worker, use these [sample yaml files](https://github.com/joyq-github/TensorFlowonK8s/tree/master/sampleyaml) to create pods and services in your cluster. Note that you should mount Azure Files as a PV for central storage for saving model checkpoints, etc. (For more info on how to use Azure Files with Kubernetes, go to  https://docs.microsoft.com/en-us/azure/aks/azure-files) 
-Once done, run *kubectl get pods*, and you should see 4 pods returned. 
+For example, to create 2 parameter servers and 2 worker, use these [sample yaml files](https://github.com/joyq-github/TensorFlowonK8s/tree/master/sampleyaml) to create pods and services in your cluster. Note that you should mount Azure Files as a PV for central storage for saving model checkpoints, etc. (For more info on how to use Azure Files with Kubernetes, go to  https://docs.microsoft.com/en-us/azure/aks/azure-files) Once done, run *kubectl get pods*, and you should see 4 pods returned. 
 
 Run *kubectl get svc* to get the service IP address of each ps/worker node, as shown below.  
 <pre>    tf-ps0       10.0.211.196   <none>        6006/TCP,2222/TCP      

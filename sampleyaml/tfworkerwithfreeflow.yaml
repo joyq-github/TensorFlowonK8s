@@ -1,0 +1,54 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: tf-worker1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        tf-worker: "1"
+        name-prefix: "tf"
+        job: "worker"
+    spec:
+      containers:
+      - name: tf-worker1
+        image: tensorflow/tensorflow:1.8.0-gpu
+        env:
+        - name: LD_PRELOAD
+          value: "/freeflow/libfsocket.so"
+        - name: VNET_PREFIX
+          value: 10.244.0.0/16
+        ports:
+        - containerPort: 6006
+          name: tensorboard
+        - containerPort: 2222
+          name: grpcport
+        resources:
+          limits:
+            alpha.kubernetes.io/nvidia-gpu: 4
+        volumeMounts:
+        - mountPath: /usr/local/nvidia
+          name: nvidia-driver
+        - mountPath: /joy
+          name: shared
+        - mountPath: /imagenetdata
+          name: imagenet
+        - mountPath: /freeflow
+          name: freeflow
+      nodeSelector:
+        nodedesc: gpunode1
+      volumes:
+      - name: nvidia-driver
+        hostPath:
+          path: /usr/local/nvidia
+      - name: shared
+        hostPath:
+          path: /home/joyadmin
+      - name: imagenet
+        hostPath:
+          path: /mnt/imagenet-data
+      - name: freeflow
+        hostPath:
+          path: /freeflow
+---
